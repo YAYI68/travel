@@ -13,7 +13,8 @@ const App = () => {
   const [coordinates,setCoordinates] = useState();
   const [bounds, setBounds] = useState({});
   const [childClicked, setChildClicked] = useState(null)
-
+  const [type,setType] = useState('restaurant');
+  const [rating,setRating] = useState('');
 
 
   useEffect(() => {
@@ -24,12 +25,12 @@ const App = () => {
 
   useEffect(() => {
     (async ()=>{
-      const data = await getPlaces(bounds.sw,bounds.ne)
+      const data = await getPlaces(type,bounds.sw,bounds.ne)
       setPlaces(data)
       console.log(data)
     })()
 
-  }, [bounds,coordinates])
+  }, [bounds,coordinates,type])
   
 
   return (
@@ -41,6 +42,10 @@ const App = () => {
             <List 
             places={places}
             childClicked={childClicked}
+            setType={setType}
+            rating={rating}
+            setRating={setRating}
+            type={type}
             />
         </Grid>  
         <Grid item xs={12} md={4}>
